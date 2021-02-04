@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>post</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/blog">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Click me
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>{{post?.title.rendered}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+<article *ngIf="post">
+  <ion-img *ngIf="post.media_url" [src]="post.media_url"></ion-img>
+  <div [innerHTML]="post.content.rendered"></div>
+</article>
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title>You liked it ? </ion-title>
+    <ion-button (click)="sharePost()" expand="full" shape="round" >
+      Share it !
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

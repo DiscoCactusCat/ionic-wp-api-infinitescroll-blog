@@ -1,0 +1,9 @@
+
+<ion-content>
+<ion-list>
+  <ion-item *ngFor="let category of categories" (click)="selectCategory(category)">
+    <ion-icon *ngIf="selected == category.id" slot="start" name="checkmark"></ion-icon>
+    {{category.name}}
+  </ion-item>
+</ion-list>
+</ion-content>

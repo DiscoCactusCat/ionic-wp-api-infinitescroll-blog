@@ -1,6 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>blog</ion-title>
+    <ion-buttons slot="start">
+      <ion-button  (click)="openFilter($event)" expand="block" shape="round">
+       <ion-icon slot="start" name="pricetag"></ion-icon> Filter
+      </ion-button>
+
+    </ion-buttons>
+    <ion-title>Blog</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button >
+
+      </ion-menu-button>
+      <ion-title>The news</ion-title>
+
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -12,9 +25,9 @@
       <ion-card-subtitle>{{ post.date_gmt | date }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <img [src]="post.media_url" *ngIf="post.media_url" class="post-img" />
+      <ion-img [src]="post.media_url" *ngIf="post.media_url" class="post-img" ></ion-img>
       <div [innerHTML]="post.excerpt.rendered"></div>
-      <ion-button expand="full" [routerLink]="'/posts/' + post.id" text-right
+      <ion-button expand="full" [routerLink]="'/blog/' + post.id" text-right
         >Read More...</ion-button
       >
     </ion-card-content>
