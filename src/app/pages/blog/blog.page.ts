@@ -34,8 +34,8 @@ export class BlogPage implements OnInit {
       this.postsLength = res.postsLength;
 
       if (infiniteScroll) {
-        infiniteScroll.target.complete();
         this.posts = [...this.posts, ...res.posts];
+        infiniteScroll.target.complete();
 
         if(this.page == this.pagesLength){
           infiniteScroll.target.disabled = true;
@@ -47,6 +47,10 @@ export class BlogPage implements OnInit {
       this.postsLength = res.postsLength;
       this.pagesLength = res.pages;
       console.log('Resultats de load', res);
+
+    }, err => {
+      console.log('loadPosts Error', err);
+    }, async ()=>{
       if(!infiniteScroll){
         (await loading).dismiss();
       }
