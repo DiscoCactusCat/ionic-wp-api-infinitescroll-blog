@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/blog">
+
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>{{page?.title.rendered}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<article *ngIf="page">
+  <ion-img *ngIf="page.media_url" [src]="page.media_url"></ion-img>
+  <div [innerHTML]="page.content.rendered"></div>
+</article>
+</ion-content>
+

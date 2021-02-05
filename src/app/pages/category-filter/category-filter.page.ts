@@ -13,6 +13,8 @@ export class CategoryFilterPage implements OnInit {
 
   categories = [];
   selected = null;
+  iconStyle='';
+
   ngOnInit() {
     this.api.getCategories().subscribe(res => {
       console.log("Reception du filtre", res);
@@ -24,6 +26,15 @@ export class CategoryFilterPage implements OnInit {
   selectCategory(category){
 
     this.popOver.dismiss(category);
+    this.iconStyle = this.getProperCategoryIcon(category);
+  }
 
+  private getProperCategoryIcon(category){
+    switch(category){
+      case "Informatique" :
+        return "laptop-outline";
+        case "Business" :
+          return "cash-outline";
+    }
   }
 }

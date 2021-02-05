@@ -2,6 +2,7 @@ import { CategoryFilterPage } from './../category-filter/category-filter.page';
 import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, PopoverController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -14,6 +15,7 @@ export class BlogPage implements OnInit {
     private api: ApiService,
     private loadingController: LoadingController,
     private popOver: PopoverController,
+    private router: Router,
   ) {}
 
   public page: number = 1;
@@ -21,6 +23,8 @@ export class BlogPage implements OnInit {
   public pagesLength: number = 0;
   public posts: Array<Object> = [];
     public categoryFilter = null;
+    public categoryName = '';
+    public searchTerm = '';
 
   ngOnInit() {
     this.loadPosts();
@@ -35,22 +39,25 @@ export class BlogPage implements OnInit {
       (await loading).present();
     }
 
-    this.api.getPosts(this.page).subscribe(async (res) => {
+    this.api.getPosts(this.page, this.categoryFilter, this.searchTerm).subscribe(async (res) => {
       this.postsLength = res.postsLength;
 
       if (infiniteScroll) {
         this.posts = [...this.posts, ...res.posts];
         infiniteScroll.target.complete();
 
-        if(this.page == this.pagesLength){
-          infiniteScroll.target.disabled = true;
-        }
+
+        // if(this.page == this.pagesLength){
+        //   infiniteScroll.target.disabled = true;
+        // }
       }else{
+        if(infiniteScroll) infiniteScroll.target.disabled =false;
         this.posts = res.posts;
       }
 
       this.postsLength = res.postsLength;
       this.pagesLength = res.pages;
+      console.log("Pages dans le loadPost appel", this.page, this.pagesLength);
       console.log('Resultats de load', res);
 
     }, err => {
@@ -63,8 +70,10 @@ export class BlogPage implements OnInit {
   }
 
   loadMore(event) {
+    console.log('Scroll');
     this.page++;
     this.loadPosts(event);
+    console.log("Pages",this.page, this.pagesLength);
   }
 
   async openFilter(event){
@@ -78,11 +87,26 @@ export class BlogPage implements OnInit {
     });
     popover.onDidDismiss().then(res =>{
       console.log("After popover", res);
+      console.log("Pages on filter", this.page);
       if (res && res.data){
         this.categoryFilter = res.data.id;
+        this.categoryName = res.data.name;
+        this.page = 1;
 
       }
+
+      this.loadPosts();
+      console.log("Pages on load posts",this.page, this.pagesLength);
     });
     await popover.present();
+  }
+
+  onSearchChange(event){
+    this.loadPosts();
+  }
+
+
+  readPost(id){
+    this.router.navigateByUrl('/blog/'+id);
   }
 }

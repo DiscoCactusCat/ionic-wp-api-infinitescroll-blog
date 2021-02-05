@@ -3,7 +3,7 @@
 <ion-list>
   <ion-item *ngFor="let category of categories" (click)="selectCategory(category)">
     <ion-icon *ngIf="selected == category.id" slot="start" name="checkmark"></ion-icon>
-    {{category.name}}
+    {{category.name}} <span *ngIf="category.count"> ({{category.count}})</span>
   </ion-item>
 </ion-list>
 </ion-content>
