@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'page/:id',
     loadChildren: () => import('./pages/wp-page/wp-page.module').then( m => m.WpPagePageModule)
   },
+  {
+    path: 'account',
+    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
+  },
 
 ];
 

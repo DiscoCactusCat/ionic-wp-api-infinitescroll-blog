@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   // apiUrl : "https://wordpress-learning.com/wp-json/wp/v2/",
-  apiUrl: "http://wp_udemy_course.test/wp-json/wp/v2/",
+  // apiUrl: "http://wp_udemy_course.test/wp-json/wp/v2/",
+  apiUrl: "http://caroline-roy.com/wp-json/wp/v2/",
+  apiAuthUrl: "http://caroline-roy.com/wp-json/jwt-auth/v1/"
 
 };
 
